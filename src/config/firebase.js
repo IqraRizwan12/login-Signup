@@ -1,7 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 import { getAuth , createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "firebase/auth"
-import { getFirestore ,collection, addDoc } from "firebase/firestore";
+import { getFirestore ,collection, addDoc,getDocs, doc } from "firebase/firestore"
+import { getStorage,ref ,uploadBytes,getDownloadURL  } from "firebase/storage"
+import {  getDoc } from "firebase/firestore"
+
+
 
 
 // Your web app's Firebase configuration
@@ -18,52 +22,105 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
+const storage = getStorage(app)
 
-function register(email,password,firstName,lastName){
-    createUserWithEmailAndPassword(auth, email, password)
-  .then(async(userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    // ...
+
+
+
+
+async function register(email,password,firstName,lastName){
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    const docRef = await addDoc(collection(db, "users"), {
+      firstName:firstName ,
+      lastName: lastName,
+      Email: email
+    });
     alert('Successfully Registered')
-    try {
-        const docRef = await addDoc(collection(db, "users"), {
-          firstName:firstName ,
-          lastName: lastName,
-          Email: email
-        });
-        alert('Successfully Registered')
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-        alert(e.message)
-      }
-      
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-    alert(errorMessage)
-  });
+   
+  } catch (e) {
+   
+    alert(e.message)
+  }
+ 
 }
 
 function login(email,password){
-    signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-    alert('Successfully Logged In')
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-
-    alert(errorMessage)
-  });
+   return signInWithEmailAndPassword(auth, email, password)
+  
 }
 
 
+async function postAd(title,description,price,file){
+  try {
+     const url = await uploadImage(file)
+     await addDoc(collection(db, "ads"), {
+       title,
+       description ,
+       price,
+       imageUrl:url
+       
+    });
+   
+    alert('Ad posted successfully')
+  } catch (e) {
+    alert(e.message)
+  }
+}
 
-export {register,login}
+async function uploadImage(file){
+  try{
+  const storageRef = ref(storage, 'ads/'+ file.name);
+  await uploadBytes(storageRef, file)
+  const url = await getDownloadURL(storageRef)
+  return url}catch(e){
+    alert(e.message)
+    
+  }
+}
+
+ async function getAds(){
+  const querySnapshot = await getDocs(collection(db, "ads"));
+  const ads = []
+ querySnapshot.forEach((doc) => {
+  const data = doc.data()
+  data.id = doc.id
+  ads.push(data)
+  // console.log(ads)
+  
+});
+return ads
+
+
+}
+
+ async function detail(id){
+
+  const docRef = doc(db, "ads", id );
+  
+  try {
+    const docSnap = await getDoc(docRef);
+    if(docSnap.exists()) {
+        // console.log(docSnap.data());
+        const ads = docSnap.data()
+  
+    } else {
+        console.log("Document does not exist")
+    }
+    return docSnap.data()
+
+
+} catch(error) {
+    console.log(error)
+}
+ 
+ }
+  
+
+
+ 
+  
+
+
+
+export {register,login,postAd,getAds,detail}
