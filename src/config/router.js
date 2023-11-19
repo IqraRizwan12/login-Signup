@@ -64,6 +64,7 @@ function Main() {
                 <input style={{ width: '30%', height: '50px', margin: '20px', fontSize: 'x-large' }} type="text" placeholder="Find Car,Mobile Phones and more " size={30} />
                 <button onClick={()=>navigate('/signin')}  style={{ padding: '10px', fontSize: 'x-large', border: '1px solid black', borderRadius: '10px', marginRight: '10px', color: 'black', textDecoration: 'none' }}>Login</button>
                 <button onClick={()=>navigate('/postad')}  style={{ padding: '10px', fontSize: 'x-large', border: '1px solid black', borderRadius: '10px', marginRight: '10px', color: 'black', textDecoration: 'none' }}>Sell</button>
+                <button onClick={()=>navigate('/')}  style={{ padding: '10px', fontSize: 'x-large', border: '1px solid black', borderRadius: '10px', marginRight: '10px', color: 'black', textDecoration: 'none' }}>Products</button>
 
                
 

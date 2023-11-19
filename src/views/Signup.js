@@ -12,6 +12,7 @@ const navigate = useNavigate()
 
 const signup = () =>{
     register(email,password,firstName,lastName)
+    alert('Registered successfully')
 }
 
     return(
