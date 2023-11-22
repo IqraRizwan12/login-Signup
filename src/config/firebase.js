@@ -44,78 +44,78 @@ const storage = getStorage(app)
 
 
 
-async function register(email, password, firstName, lastName) {
+// async function register(email, password, firstName, lastName) {
 
-  fetch('http://localhost:3000/users/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-      fullname: firstName
-    })
-  }).then(res => res.json())
-    .then(res => console.log(res))
-
-
-  // try {
-  //   const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-  //   const docRef = await addDoc(collection(db, "users"), {
-  //     firstName:firstName ,
-  //     lastName: lastName,
-  //     Email: email
-  //   });
-  //   alert('Successfully Registered')
-
-  // } catch (e) {
-
-  //   alert(e.message)
-  // }
-
-}
-
-function login(email, password) {
-  return signInWithEmailAndPassword(auth, email, password)
-
-}
+//   fetch('http://localhost:3000/users/register', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       email: email,
+//       password: password,
+//       fullname: firstName
+//     })
+//   }).then(res => res.json())
+//     .then(res => console.log(res))
 
 
-async function postAd(title, description, price, file) {
+//   try {
+//     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+//     const docRef = await addDoc(collection(db, "users"), {
+//       firstName:firstName ,
+//       lastName: lastName,
+//       Email: email
+//     });
+//     alert('Successfully Registered')
 
-  const url = await uploadImage(file)
+//   } catch (e) {
 
-  fetch('http://localhost:3000/ads/addData', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      title,
-      description,
-      price,
-      imageUrl: url
-    })
-  }).then(res => res.json())
-    .then(res => console.log(res))
-    .catch(e => console.log('e --->', e))
+//     alert(e.message)
+//   }
 
-  // try {
-  //    const url = await uploadImage(file)
-  //    await addDoc(collection(db, "ads"), {
-  //      title,
-  //      description ,
-  //      price,
-  //      imageUrl:url
+// }
 
-  //   });
+// function login(email, password) {
+//   return signInWithEmailAndPassword(auth, email, password)
 
-  //   alert('Ad posted successfully')
-  // } catch (e) {
-  //   alert(e.message)
-  // }
-}
+// }
+
+
+// async function postAd(title, description, price, file) {
+
+//   const url = await uploadImage(file)
+
+//   fetch('http://localhost:3000/ads/addData', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       title,
+//       description,
+//       price,
+//       imageUrl: url
+//     })
+//   }).then(res => res.json())
+//     .then(res => console.log(res))
+//     .catch(e => console.log('e --->', e))
+
+//   try {
+//      const url = await uploadImage(file)
+//      await addDoc(collection(db, "ads"), {
+//        title,
+//        description ,
+//        price,
+//        imageUrl:url
+
+//     });
+
+//     alert('Ad posted successfully')
+//   } catch (e) {
+//     alert(e.message)
+//   }
+// }
 
 async function uploadImage(file) {
   try {
@@ -129,22 +129,22 @@ async function uploadImage(file) {
   }
 }
 
-async function getAds() {
+// async function getAds() {
 
 
-  //   const querySnapshot = await getDocs(collection(db, "ads"));
-  //   const ads = []
-  //  querySnapshot.forEach((doc) => {
-  //   const data = doc.data()
-  //   data.id = doc.id
-  //   ads.push(data)
-  //   // console.log(ads)
+//     const querySnapshot = await getDocs(collection(db, "ads"));
+//     const ads = []
+//    querySnapshot.forEach((doc) => {
+//     const data = doc.data()
+//     data.id = doc.id
+//     ads.push(data)
+//     // console.log(ads)
 
-  // });
-  // return ads
+//   });
+//   return ads
 
 
-}
+// }
 
 async function detail(id) {
 
@@ -171,7 +171,4 @@ async function detail(id) {
 }
 
 
-
-
-
-export { register, login, postAd, getAds, detail }
+export {   detail,uploadImage }

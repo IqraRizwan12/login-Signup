@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { postAd } from "../config/firebase"
+import { postAd } from "../api"
+// import { postAd } from "../config/firebase"
 import { useNavigate } from "react-router-dom"
 
 function PostAd() {

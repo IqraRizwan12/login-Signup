@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { login } from '../config/firebase'
+// import { login } from '../config/firebase'
+import { login } from '../api'
 
 function Signin(){
 
@@ -18,7 +19,6 @@ const signin = async () =>{
     }
 
 }
-    
 
     return(
         <div style={{border:'1px solid lightBlue',backgroundColor:'lightBlue', padding:'10px',borderRadius:'10px',height:'520px',boxShadow:'5px 5px 10px white',width:'370px',textAlign:'center', margin:'auto'}}>

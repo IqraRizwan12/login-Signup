@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { register } from '../config/firebase'
+import { register } from '../api'
 
 function Signup(){
 
@@ -12,7 +12,7 @@ const navigate = useNavigate()
 
 const signup = () =>{
     register(email,password,firstName,lastName)
-    alert('Registered successfully')
+   
 }
 
     return(

@@ -1,32 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { detail } from '../config/firebase'
+import { detailpage } from '../api'
 
 
 function Detail() {
     const [details, setDetails] = useState([])
     const params = useParams()
+    const id = params.id
 
-    // console.log('params', params)
-    
 
     useEffect(()=>{
-        fetch('http://localhost:3000/ads/'+ params.id)
-        .then(res => res.json())
-        .then(res => setDetails(res.data))
+         detailpage(setDetails,id)
   
     },[])
     
-
-
-    // async function productDetail() {
-    //     const addData = await detail(id)
-    //     setDetails(addData)
-
-    // }
-
-    console.log('details',details)
-
 
 
     return (
